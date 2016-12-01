@@ -2,15 +2,15 @@
 -- https://www.zipato.com/product/mini-keypad-rfid
 
 -- Change these
-local zipatoNodeId = 892
+local zipatoDeviceName = "Zapato Mini Keypad Rfid"
 
 local tags = {}
 -- Add tags below
 
 -- Example code from a tag
--- tags[1] = {device=881, code={143, 188, 119, 84, 42, 0, 1, 4, 0, 0}};
+-- tags[1] = {device="Lamp", code={143, 188, 119, 84, 42, 0, 1, 4, 0, 0}};
 -- Code for entering 1-2-3-4 on the keyboard
--- tags[2] = {device=813, code={49, 50, 51, 52, 0, 0, 0, 0, 0, 0}};
+-- tags[2] = {device="Lamp", code={49, 50, 51, 52, 0, 0, 0, 0, 0, 0}};
 
 -- Do not change below
 
@@ -21,7 +21,7 @@ COMMAND_CLASS_ALARM = 0x71
 ALARM_REPORT = 0x05
 
 local deviceManager = require "telldus.DeviceManager"
-local zipatoNode = deviceManager:device(zipatoNodeId):zwaveNode()
+local zipatoDevice = deviceManager:findByName(zipatoDeviceName)
 
 function compareTags(tag1, tag2)
 	for index, item in python.enumerate(tag2) do
@@ -37,7 +37,7 @@ function configureTag(index)
 	for key,code in pairs(tags[index]['code']) do
 		data.append(code)
 	end
-	zipatoNode:sendMsg(COMMAND_CLASS_USER_CODE, USER_CODE_SET, data)
+	zipatoDevice:zwaveNode():sendMsg(COMMAND_CLASS_USER_CODE, USER_CODE_SET, data)
 	print("A new tag was configured in the Zipato.")
 	print("This will be sent the next time the reader is awake")
 end
@@ -62,13 +62,14 @@ function handleAlarm(data)
 
 	local event = data[5]
 	local tag = data[7]
-	local device = deviceManager:device(tags[tag]['device'])
+	local device = deviceManager:findByName(tags[tag]['device'])
 	if device == nil then
 		print("Device not found")
 	end
 	if event == 5 then
 		print("Away, tag %s", tag)
-		zipatoNode:sendMsg(0x20, 0x01, list.new(0xFF))
+		-- This rows tells the node to start notification beeping
+		--zipatoDevice:zwaveNode():sendMsg(0x20, 0x01, list.new(0xFF))
 		device:command("turnoff", nil, "RFID")
 	elseif event == 6 then
 		print("Home, tag %s", tag)
@@ -77,7 +78,7 @@ function handleAlarm(data)
 end
 
 function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
-	if device:id() ~= zipatoNodeId then
+	if device:id() ~= zipatoDevice:id() then
 		return
 	end
 	if cmdClass == COMMAND_CLASS_ALARM and cmd == ALARM_REPORT then
