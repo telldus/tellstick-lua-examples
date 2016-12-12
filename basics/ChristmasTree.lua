@@ -24,11 +24,11 @@ function onDeviceStateChanged(device, state, stateValue)
 		return
 	end
 	while (sensor:state() == 2) do -- As long as the sensor is dry
-   		print("Tick tack")
-   		switch:command("turnoff", nil, "Christmas tree")
+		print("Tick tack")
+		switch:command("turnoff", nil, "Christmas tree")
 		sleep(delay*1000)
 		switch:command("turnon", nil, "Christmas tree")
-   	    sleep(delay*1000)
+		sleep(delay*1000)
 	end
 	running = false
 end
