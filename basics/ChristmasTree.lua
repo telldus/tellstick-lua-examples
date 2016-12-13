@@ -11,7 +11,6 @@ function onDeviceStateChanged(device, state, stateValue)
 	if running == true then
 		return
 	end
-	running = true
 	local sensor = deviceManager:findByName(water_sensor) 
 	local switch = deviceManager:findByName(christmas_tree) 
 	if sensor == nil then
@@ -23,6 +22,7 @@ function onDeviceStateChanged(device, state, stateValue)
 	if device:id() ~= sensor:id() then
 		return
 	end
+	running = true
 	while (sensor:state() == 2) do -- As long as the sensor is dry
 		print("Tick tack")
 		switch:command("turnoff", nil, "Christmas tree")
