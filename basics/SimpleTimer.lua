@@ -1,6 +1,9 @@
+-- Turns off a device xx minutes after it was turned on
+
 local deviceManager = require "telldus.DeviceManager"
 local trigger = "Office" -- Name of the device
-local delay = 5 -- Timer setting in minutes
+local delay_minutes = 0 -- Delay in minutes
+local delay_seconds = 5 -- Delay in seconds
 local running = false
 
 function onDeviceStateChanged(device, state, stateValue)
@@ -17,7 +20,7 @@ function onDeviceStateChanged(device, state, stateValue)
 	running = true
 	if (device:state() == 1) then
 		print("Timer started")
-		sleep(delay*60000)
+		sleep(delay_minutes*60000+delay_seconds*1000)
 		print("Turning off %s", device:name())
 		device:command("turnoff", nil, "Timer")
 	end
