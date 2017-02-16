@@ -10,10 +10,6 @@ function onDeviceStateChanged(device, state, stateValue)
 	if running == true then
 		return
 	end
-	local device = deviceManager:findByName(trigger) 
-	if device == nil then
-		return
-	end
 	if device:name() ~= trigger then
 		return
 	end
