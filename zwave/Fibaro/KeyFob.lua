@@ -1,8 +1,10 @@
+-- Click on left button turns on a devoce, click on right button turns it off. 
 -- Define the names on your devices here:
 local remotecontrol = "Keyfob"
 local device1 = "Office"
 local device2 = "Kitchen"
 local device3 = "Garage"
+debug = false
 
 -- DO NOT EDIT BELOW THIS LINE --
 
@@ -100,7 +102,9 @@ function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
 	local sequence = data[0]
 	local action = data[1]
 	local scene = data[2]
-	print("CENTRAL_SCENE_NOTIFICATION from: %s, Scene: %s, Action: %s", device:name(), scene, action)
+	if debug == true then
+		print("CENTRAL_SCENE_NOTIFICATION from: %s, Scene: %s, Action: %s", device:name(), scene, action)
+	end
 	if scene == 1 then
 		scene1(action)
 	elseif scene == 2 then
