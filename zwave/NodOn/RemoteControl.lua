@@ -19,12 +19,12 @@ function scene1(action)
 	local device = deviceManager:findByName(device1)
 	if action == 0 then -- Press
 		device:command("turnon", nil, "Scene")
-		print("Turning on device: %s", device1)
+		print("Turning ON device: %s", device1)
 	elseif action == 1 then -- Release
 	elseif action == 2 then -- Press and hold
 	elseif action == 3 then -- Doubleclick
 		device:command("turnoff", nil, "Scene")
-		print("Turning off device: %s", device1)
+		print("Turning OFF device: %s", device1)
 	end
 end
 
@@ -32,8 +32,10 @@ function scene2(action)
 	local device = deviceManager:findByName(device2)
 	if action == 0 then
 		device:command("turnon", nil, "Scene")
+		print("Turning ON device: %s", device2)
 	elseif action == 3 then -- Doubleclick
 		device:command("turnoff", nil, "Scene")
+		print("Turning OFF device: %s", device2)
 	end
 end
 
@@ -41,8 +43,10 @@ function scene3(action)
 	local device = deviceManager:findByName(device3)
 	if action == 0 then
 		device:command("turnon", nil, "Scene")
+		print("Turning ON device: %s", device3)
 	elseif action == 3 then -- Doubleclick
 		device:command("turnoff", nil, "Scene")
+		print("Turning OFF device: %s", device3)
 	end
 end
 
@@ -50,13 +54,15 @@ function scene4(action)
 	local device = deviceManager:findByName(device4)
 	if action == 0 then
 		device:command("turnon", nil, "Scene")
+		print("Turning ON device: %s", device4)
 	elseif action == 3 then -- Doubleclick
 		device:command("turnoff", nil, "Scene")
+		print("Turning OFF device: %s", device4)
 	end
 end
 
 function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
-	if device:name() ~= "NodOn" then
+	if device:name() ~= remotecontrol then
 		return
 	end
 	if cmdClass ~= COMMAND_CLASS_CENTRAL_SCENE or cmd ~= CENTRAL_SCENE_NOTIFICATION then
