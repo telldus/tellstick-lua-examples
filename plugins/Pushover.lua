@@ -1,6 +1,6 @@
 function onInit()
 	local pushover = require 'pushover.Client'
-	local ret = pushover:send{msg='Hej from lua', title='telldus'}
+	local ret = pushover:send{msg='Test message from Lua', title='Telldus'}
 	if ret.status == 1 then
 		print "Sent successfully"
 	end
@@ -17,6 +17,13 @@ function onDeviceStateChanged(device, state, stateValue)
 		return
 	end
 	print("Send msg")
-	pushover.send{msg='Office changed status to ' .. state, title='telldus'}
-	print("msg sent")
+	if state == 1 then
+		status = "ON"
+	elseif state == 2 then
+		status = "OFF"
+	end
+	local ret = pushover:send{msg='Office changed status to ' .. status , title='Telldus'}
+	if ret.status == 1 then
+		print "Sent successfully"
+	end
 end
