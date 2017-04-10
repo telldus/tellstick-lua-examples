@@ -1,3 +1,5 @@
+-- Pushover plugin has to be installed and configured
+
 function onInit()
 	local pushover = require 'pushover.Client'
 	local ret = pushover:send{msg='Test message from Lua', title='Telldus'}
