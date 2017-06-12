@@ -1,5 +1,5 @@
 -- The AeonLabs Siren can sound in a few different ways.
--- The different sounds and volume are defined using configuration 0x37 (dec 55)
+-- The different sounds and volume are defined using configuration 0x25 (dec 37)
 -- Please note that the configurations are not resetted to what it was before.
 
 local deviceName = "Aeon"	-- The name of the siren
