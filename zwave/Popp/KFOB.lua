@@ -59,7 +59,7 @@ function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
 	if debug == true then
 		print("CENTRAL_SCENE_NOTIFICATION from: %s, Scene: %s, Action: %s", device:name(), scene, action)
 	end
-	if scene > 4 then
+	if scene > 4 then  -- Double klick is not handled as some other action but with scene ID 5-8.
 		scene = scene - 4
 		action = 3
 	end
