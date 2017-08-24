@@ -6,6 +6,7 @@ local device2 = "Button 2 click"
 local device3 = "Button 3 click"
 local device4 = "Button 4 click"
 local device5 = "Button 5 click"
+local release = "Button release"
 
 -- DO NOT EDIT BELOW THIS LINE --
 
@@ -34,6 +35,9 @@ function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
 		device:command("turnon", nil, "Scene")
 		print("Turning on device: %s", device1)
 	elseif action == 1 then -- Release
+		local device = deviceManager:findByName(release)
+		device:command("turnoff", nil, "Scene")
+		print("Turning off device: %s", release)
 
 	elseif action == 2 then -- Press and hold
 
