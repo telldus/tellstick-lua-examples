@@ -1,3 +1,17 @@
+-- Plugin for Z-WAVE.ME Wall Controller Secure (0115-0100-0101)
+-- https://products.z-wavealliance.org/products/1086
+-- 
+-- # Author: Anders R
+-- # Description: Turns the WALLC-S device on (top buttons) and off (bottom buttons) in Telldus Live!
+-- # Usage:
+-- Include device in network and add this plugin to the ZNET controller. 
+-- Device might need additional button presses during inclusion to 
+-- prevent it from going into sleep mode too early. Check the configuration
+-- of parameters 11-14, should be set to "Central Scene to Gateway".
+-- Build events around the device turning on and off.
+--
+-- Tip: Use the "Sniffer" plugin for troubleshooting.
+
 COMMAND_CLASS_CENTRAL_SCENE = 0x5B
 CENTRAL_SCENE_NOTIFICATION = 0x03
 
