@@ -1,6 +1,7 @@
 -- One click turns on a device, double click turns it off. 
 -- Define the names on your devices here:
-local remotecontrol = "scene"
+
+local remotecontrol = "scene"  -- The name of your Remotec SceneMaster
 Devices = {}
 Devices[1] = "Office"
 Devices[2] = "Kitchen"
