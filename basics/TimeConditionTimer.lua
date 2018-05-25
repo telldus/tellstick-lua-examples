@@ -1,12 +1,15 @@
 -- Turns off a device xx minutes after it was turned on if the time (hours) is between yy and zz
 -- Please note that times is in UTC and that this might be changed in the future!
 
-local deviceManager = require "telldus.DeviceManager"
+-- Define your devices and settings here:
 local trigger = "Office" -- Name of the device
 local delay_minutes = 0  -- Delay in minutes
 local delay_seconds = 5  -- Delay in seconds
 local time_start = 8     -- Timer active from 08:00
 local time_stop = 10     -- Timer active until 12:00
+
+------ Do not change below ------
+local deviceManager = require "telldus.DeviceManager"
 local running = false
 local hour
 
