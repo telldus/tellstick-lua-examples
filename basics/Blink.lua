@@ -1,10 +1,13 @@
 -- This script can be used to make a device blink
 -- It will keep on blinking as long as the trigger is ON
 
-local deviceManager = require "telldus.DeviceManager"
+-- Define your devices and settings here:
 local blink = "blink" -- Name of the device that should be controlled
 local trigger = "trigger" -- Name of the trigger
 local delay = 5 -- Flash speed in seconds
+
+------ Do not change below ------
+local deviceManager = require "telldus.DeviceManager"
 local running = false
 
 function onDeviceStateChanged(device, state, stateValue)
