@@ -1,10 +1,13 @@
 -- This script can be used to make sure that the christmas tree does not run out of water
 -- You'll need a water sensor such as the Philio PAT02 and a switch for the lights in the christmas tree
 
-local deviceManager = require "telldus.DeviceManager"
+-- Define your devices and settings here:
 local christmas_tree = "Julgran" -- Name of the christmas tree
 local water_sensor = "Vattensensor" -- Name of the water sensor
 local delay = 5 -- Flash speed
+
+------ Do not change below ------
+local deviceManager = require "telldus.DeviceManager"
 local running = false
 
 function onDeviceStateChanged(device, state, stateValue)
