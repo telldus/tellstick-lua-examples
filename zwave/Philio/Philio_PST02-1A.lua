@@ -3,15 +3,11 @@
 -- door/window sensor. This script checks what kind of
 -- report is sent and then controls dummy devices depending
 -- on the report. 
--- Since the sensor does not send a Motion idle report, a simple timer 
--- turns off the motion dummy device after the set time. 
+-- In order to get a Motion idle report, set 1st bit of configuration 7 to checked.
 
 local trigger = "Philio"
 local window = "Window"
 local motion = "Motion"
-
-local motion_delay_minutes = 1 -- Delay in minutes
-local motion_delay_seconds = 0 -- Delay in seconds
 
 -- DO NOT EDIT BELOW THIS LINE --
 
@@ -22,6 +18,7 @@ ACCESS_CONTROL = 0x06
 WINDOWDOOR_IS_OPEN = 0x16
 WINDOWDOOR_IS_CLOSED = 0x17
 MOTIONDETECTION = 0x08
+UNKNOWN_EVENT = 0xFE
 
 local deviceManager = require "telldus.DeviceManager"
 
@@ -62,7 +59,7 @@ function control_motion(value)
 	if value == MOTIONDETECTION then
 		control:command("turnon", nil, "Philio")
 		print("Motion detected, turning on device: %s", control:name())
-		sleep(motion_delay_minutes*60000+motion_delay_seconds*1000)
+	elseif value == UNKNOWN_EVENT then
 		print("Turning off device: %s", control:name())
 		control:command("turnoff", nil, "Philio")
 	end
