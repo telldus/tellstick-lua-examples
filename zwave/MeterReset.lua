@@ -1,5 +1,5 @@
 -- Script to send a Meter Reset command to a Z-Wave device 
--- This can be handy to reset the accomulated power readings in a plug
+-- This can be handy to reset the accumulated power readings in a plug, etc.
 -- The reset command will be sent to the device below when the trigger is controlled ON
 
 local deviceName = "Plug"    -- name of your device
@@ -22,7 +22,7 @@ function onDeviceStateChanged(device, state, stateValue)
 		return
 	end
 	if dev == nil then
-		print("Could not find the device %s", trigger)
+		print("Could not find the device %s", deviceName)
 		return
 	end
 	if trig:state() == 1 then
