@@ -46,6 +46,7 @@ function onInit()
 	end
 end
 
+-- The lua version shipped with TellStick does not support bitwise operators
 function BitAND(a,b)--Bitwise and
     local p,c=1,0
     while a>0 and b>0 do
