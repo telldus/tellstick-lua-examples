@@ -113,10 +113,12 @@ function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
 	if filter ~= nil and device:id() ~= filter:id() then
 		return
 	end
-	if cmdClass == 0x31 then 
+	if cmdClass == 0x80 then
+		battery(device, cmd, data)
+	elseif cmdClass == 0x31 then
 		sensorMultilevel(cmd, data)
 	end
-	if cmdClass == 0x71 then 
+	if cmdClass == 0x71 then
 		notification(cmd, data)
 	end
 	if CommandClass[cmdClass] == None then
@@ -182,6 +184,17 @@ function notification(cmd, data)
 	print("Notification, Type: %s, Event: %s", type[notificationtype], event_type)
 end
 	
+function battery(device, cmd, data)
+	if cmd == 3 then
+		if data[0] == 0xFF then
+			msg = "LOW BATTERY WARNING"
+		else
+			msg = tonumber(data[0])
+		end
+	print("Battery Level Report from %s: %s", device:name(), msg)
+	end
+end
+
 function sensorMultilevel(cmd, data)
 	type = {}
 	type[0x00] = "Reserved"
