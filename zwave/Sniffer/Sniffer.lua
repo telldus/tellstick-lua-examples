@@ -122,9 +122,9 @@ function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
 		notification(cmd, data)
 	end
 	if CommandClass[cmdClass] == None then
-		print("Z-Wave msg received from %s. CmdClass %s, cmd %s: %s", device:name(), cmdClass , cmd, data)
+		print("UTC: %s | Z-Wave msg received from %s. CmdClass %s, cmd %s: %s", os.date("%X"), device:name(), cmdClass , cmd, data)
 	else
-		print("Z-Wave msg received from %s. CmdClass %s, cmd %s: %s", device:name(), CommandClass[cmdClass] , cmd, data)
+		print("UTC: %s | Z-Wave msg received from %s. CmdClass %s, cmd %s: %s", os.date("%X"), device:name(), CommandClass[cmdClass] , cmd, data)
 	end
 end
 
@@ -181,7 +181,7 @@ function notification(cmd, data)
 	else
 		event_type = event
 	end
-	print("Notification, Type: %s, Event: %s", type[notificationtype], event_type)
+	print("UTC: %s | Notification, Type: %s, Event: %s", os.date("%X"), type[notificationtype], event_type)
 end
 	
 function battery(device, cmd, data)
@@ -191,7 +191,7 @@ function battery(device, cmd, data)
 		else
 			msg = tonumber(data[0])
 		end
-	print("Battery Level Report from %s: %s", device:name(), msg)
+	print("UTC: %s | Battery Level Report from %s: %s", os.date("%X"), device:name(), msg)
 	end
 end
 
@@ -274,6 +274,6 @@ function sensorMultilevel(cmd, data)
 			value = data[2]
 		end
 	end
-	print("SensorMultilevel Sensortype: %s, Value: %s, Scale: %s", type[sensortype], value, scale)
+	print("UTC: %s | SensorMultilevel Sensortype: %s, Value: %s, Scale: %s", os.date("%X"), type[sensortype], value, scale)
 
 end
