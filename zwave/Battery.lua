@@ -1,5 +1,5 @@
 -- This scripts turns on a dummy device when a Z-Wave device sends a Low Battery Warning. 
--- The name of the device that sent the warning can be seen in the device log if the dummy device.
+-- The name of the device that sent the warning can be seen in the device log of the dummy device.
 
 local lowPower = "Low Battery Warning"  -- Name of the dummy device
 
