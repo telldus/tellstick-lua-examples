@@ -1,10 +1,14 @@
--- Requires Mail sender plugin to send email.
--- This script sends an email when a tamper alarm has 
+-- This script turns on a dummy device when a tamper alarm has 
 -- been received from one of the nodes in the Z-Wave-network.
+-- The name of the node can be seen in the device history for the dummy device.
 
-email_adress = 'insert here'
+local tamper = "tamper"  -- Name of the dummy device
+
 
 -- DO NOT EDIT BELOW THIS LINE --
+
+local deviceManager = require "telldus.DeviceManager"
+local tamperDevice = deviceManager:findByName(tamper)
 
 SENSOR_BINARY = 0x30
 NOTIFICATION = 0x71
@@ -37,11 +41,6 @@ function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
 end
 
 function tamper(device)
-	print("Tamper alarm from %s (%s)!", device:name(), device:id())
-	local smtp = require "mailsender.SMTP"
-	smtp:send{
-		receiver=email_adress,
-		msg='Tamper alarm from ' .. device:name() ,
-		subject='Lua mailer'
-	}
+	print("Tamper alarm from %s", device:name())
+	tamperDevice:command("turnon", nil, "Tamper Warning from " .. device:name())
 end
