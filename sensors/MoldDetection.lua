@@ -6,8 +6,8 @@
 -- ON - High risk
 -- Define your sensor and device names below:
 	
-local my_sensor = "3"		     				-- Name of the sensor 
-local my_device = "mold"					-- Name of the dummy device (a dimmer!) 
+local my_sensor = "sensorname"	     				-- Name of the sensor
+local my_device = "devicename"					-- Name of the dummy device (a dimmer!)
 local debug = true						-- Print debug data to console (true/false)
 
 -- DO NOT EDIT BELOW THIS LINE --
