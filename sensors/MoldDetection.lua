@@ -26,24 +26,24 @@ function onSensorValueUpdated(device, valueType, value, scale)
 			print("Got temperature data: %s", value)
 			print("Humidity is: %s", humidityValue)
 		end
-		low = 23*math.exp(-value* 0.150)+75
-		high = 21*math.exp(-value* 0.150)+83
+		low = 23*math.exp(-value* 0.150)+75  -- Calculate the low risk value
+		high = 21*math.exp(-value* 0.150)+83  -- Calculate the high risk value
 		if debug == true then
 			print("low: %s", math.floor(low))
 			print("high: %s", math.floor(high))
 		end	
-		if humidityValue >= high then
-			if dimmer_device:state() ~= 1 then
+		if humidityValue >= high then  -- If the current value is higher than the calculated high risk value
+			if dimmer_device:state() ~= 1 then  -- Don't turn on the dummy device if it's already on
 				dimmer_device:command("turnon", nil, "Mold script")
 				print("HIGH risk!")
 			end
-		elseif humidityValue >= low then
-			if dimmer_device:state() ~= 16 then
+		elseif humidityValue >= low then  -- If the current value is higher than the calculated low risk value
+			if dimmer_device:state() ~= 16 then  -- Don't dim on the dummy device if it's already dimmed
 				dimmer_device:command("dim", 127, "Mold script")
 				print("LOW risk!")
 			end
-		elseif humidityValue < low then
-			if dimmer_device:state() ~= 2 then
+		elseif humidityValue < low then  -- If the current value is lower than the calculated low risk value
+			if dimmer_device:state() ~= 2 then  -- Don't turn off the dummy device if it's already off
 				dimmer_device:command("turnoff", nil, "Mold script")
 				print("Very low risk")
 			end
