@@ -28,8 +28,12 @@ function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
 		notificationStatus = data[3]
 		notificationType = data[4]
 		event = data[5]
-		if notificationStatus == 0xFF and notificationType == 7 and event == 3 then
-			tamper(device)
+		if notificationStatus == 0xFF and notificationType == 7 then
+			if event == 3 then
+				tamper(device)
+			elseif event == 0 then
+				tamper_cleared(device)
+			end
 		end
 	end
 	if cmdClass == SENSOR_ALARM and cmd == SENSOR_ALARM_REPORT then
@@ -43,4 +47,9 @@ end
 function tamper(device)
 	print("Tamper alarm from %s", device:name())
 	tamperDevice:command("turnon", nil, "Tamper Warning from " .. device:name())
+end
+
+function tamper_cleared(device)
+	print("Tamper cleared from %s", device:name())
+	tamperDevice:command("turnoff", nil, "Tamper Cleared from " .. device:name())
 end
