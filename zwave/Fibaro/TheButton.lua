@@ -7,6 +7,7 @@ local device3 = "Button 3 click"
 local device4 = "Button 4 click"
 local device5 = "Button 5 click"
 local release = "Button release"
+local hold = "Button hold"
 
 -- DO NOT EDIT BELOW THIS LINE --
 
@@ -38,24 +39,53 @@ function onZwaveMessageReceived(device, flags, cmdClass, cmd, data)
 		local device = deviceManager:findByName(release)
 		device:command("turnoff", nil, "Scene")
 		print("Turning off device: %s", release)
-
 	elseif action == 2 then -- Press and hold
-
-	elseif action == 3 then -- 2 Click
+		local device = deviceManager:findByName(hold)
+		device:command("turnon", nil, "Scene")
+		print("Turning on device: %s", hold)
+	elseif action == 3 then -- 2 Clicks
 		local device = deviceManager:findByName(device2)
 		device:command("turnon", nil, "Scene")
 		print("Turning on device: %s", device2)
-	elseif action == 4 then -- 3 Click
+	elseif action == 4 then -- 3 Clicks
 		local device = deviceManager:findByName(device3)
 		device:command("turnon", nil, "Scene")
 		print("Turning on device: %s", device3)
-	elseif action == 5 then -- 4 Click
+	elseif action == 5 then -- 4 Clicks
 		local device = deviceManager:findByName(device4)
 		device:command("turnon", nil, "Scene")
 		print("Turning on device: %s", device4)
-	elseif action == 6 then -- 5 Click
+	elseif action == 6 then -- 5 Clicks
 		local device = deviceManager:findByName(device5)
 		device:command("turnon", nil, "Scene")
 		print("Turning on device: %s", device5)
+	elseif action == 134 then -- 5 Clicks	- Newer devices seems to have new actions
+		local device = deviceManager:findByName(device5)
+		device:command("turnon", nil, "Scene")
+		print("Turning on device: %s", device5)
+	elseif action == 133 then -- 4 Clicks
+		local device = deviceManager:findByName(device4)
+		device:command("turnon", nil, "Scene")
+		print("Turning on device: %s", device4)
+	elseif action == 132 then -- 3 Clicks
+		local device = deviceManager:findByName(device3)
+		device:command("turnon", nil, "Scene")
+		print("Turning on device: %s", device3)
+	elseif action == 131 then -- 2 Clicks
+		local device = deviceManager:findByName(device2)
+		device:command("turnon", nil, "Scene")
+		print("Turning on device: %s", device2)
+	elseif action == 128 then -- 1 Click
+		local device = deviceManager:findByName(device1)
+		device:command("turnon", nil, "Scene")
+		print("Turning on device: %s", device1)
+	elseif action == 130 then -- Press and hold
+		local device = deviceManager:findByName(hold)
+		device:command("turnon", nil, "Scene")
+		print("Turning on device: %s", hold)
+	elseif action == 129 then -- Release
+		local device = deviceManager:findByName(release)
+		device:command("turnoff", nil, "Scene")
+		print("Turning off device: %s", release)
 	end
 end
